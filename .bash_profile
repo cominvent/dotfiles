@@ -17,3 +17,7 @@ export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[36m\]\h:\[\033[33m\]\w\[\033[m\]\[\0
 
 # WP-CLI Bash completions
 source $HOME/.wp-cli/vendor/wp-cli/wp-cli/utils/wp-completion.bash
+# Git autocompletions:
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi
