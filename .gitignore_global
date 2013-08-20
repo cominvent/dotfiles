@@ -33,3 +33,8 @@ Thumbs.db
 # Subversion #
 ##############
 .svn
+
+# Project files #
+#################
+*.sublime-project
+*.sublime-workspace
