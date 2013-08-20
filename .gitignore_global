@@ -33,6 +33,8 @@ Thumbs.db
 # Subversion #
 ##############
 .svn
+.diff
+.patch
 
 # Project files #
 #################
