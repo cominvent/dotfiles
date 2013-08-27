@@ -2,6 +2,36 @@ export PATH=~/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH
 
 # aliases
 alias ls="ls -aGl"
+alias git-svn="git svn"
+
+# Apply a Trac patch.
+function tracpatch() {
+
+	if [ -z "$1" ]; then
+		echo 'usage: tracpatch <url>'
+		return
+	fi
+
+	curl "$1?format=raw" | patch -p0
+
+}
+
+# Generate an SVN-compatible patch from Git.
+function svndiff() {
+
+	if [ -z "$1" ]; then
+		local branch=`git rev-parse --abbrev-ref HEAD`
+	else
+		local branch=$1
+	fi
+
+	if [ -z "$branch" ]; then
+		return
+	else
+		git diff master... --no-prefix > "$branch.diff"
+	fi
+
+}
 
 # git-aware prompt
 #  \u           user
