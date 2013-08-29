@@ -3,6 +3,7 @@ export PATH=~/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH
 # aliases
 alias ls="ls -aGl"
 alias git-svn="git svn"
+alias gi="gitignore"
 
 # Apply a Trac patch.
 function tracpatch() {
@@ -51,3 +52,39 @@ source $HOME/.wp-cli/vendor/wp-cli/wp-cli/utils/wp-completion.bash
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
+
+# Find the top-most directory for a Git repo (helper function)
+function find_git_repo_root {
+
+	local dir=$PWD
+
+	until [ "$dir" -ef / ]; do
+
+		if [ -f "$dir/.git/HEAD" ]; then
+			git_repo_root=$dir
+			return
+		fi
+
+		dir="$(dirname "$dir")"
+
+	done
+
+	git_repo_root=""
+
+}
+
+# Add an entry to the current Git repo's .gitignore file
+function gitignore {
+
+	if [ -z "$1" ]; then
+		echo 'usage: gitignore <file>'
+		return
+	fi
+
+	find_git_repo_root
+	touch "$git_repo_root/.gitignore"
+	echo "$1" >> "$git_repo_root/.gitignore"
+
+	echo "Added $1 to $git_repo_root/.gitignore"
+
+}
