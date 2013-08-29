@@ -1,9 +1,11 @@
 export PATH=~/bin:/usr/local/bin:/usr/local/mysql/bin:$PATH
+export PATH=/usr/local/php5/bin:$PATH
 
 # aliases
 alias ls="ls -aGl"
 alias git-svn="git svn"
 alias gi="gitignore"
+alias got="say"
 
 # Apply a Trac patch.
 function tracpatch() {
