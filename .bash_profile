@@ -34,6 +34,8 @@ function svndiff() {
 		git diff master... --no-prefix > "$branch.diff"
 	fi
 
+	echo "Created $branch.diff"
+
 }
 
 # git-aware prompt
