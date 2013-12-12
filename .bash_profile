@@ -4,7 +4,6 @@ export PATH=/usr/local/php5/bin:$PATH
 # aliases
 alias ls="ls -aGl"
 alias git-svn="git svn"
-alias gi="gitignore"
 alias got="say"
 
 # Apply a Trac patch.
@@ -29,6 +28,7 @@ function svndiff() {
 	fi
 
 	if [ -z "$branch" ]; then
+		echo 'No git branch found!'
 		return
 	else
 		git diff master... --no-prefix > "$branch.diff"
