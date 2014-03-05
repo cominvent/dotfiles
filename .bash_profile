@@ -38,6 +38,27 @@ function svndiff() {
 
 }
 
+function svn() {
+
+	array=( $@ )
+	len=${#array[@]}
+	_args=${array[@]:1:$len}
+
+	case "$1" in
+
+	'difftool')
+		svn diff --diff-cmd ~/svndiff "$_args"
+		;;
+
+	*)
+		# Pipe all other SVN commands through colordiff
+		/usr/local/bin/svn "${@}" | colordiff
+		;;
+
+	esac
+
+}
+
 # git-aware prompt
 #  \u           user
 #  \h           host
