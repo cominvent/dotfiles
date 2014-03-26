@@ -116,3 +116,25 @@ function gitignore {
 	echo "Added $1 to $git_repo_root/.gitignore"
 
 }
+
+function wpt {
+
+	if [ -z "$1" ]; then
+		echo 'usage: wpt <ticket-number>'
+		return
+	fi
+
+	open $(printf https://core.trac.wordpress.org/ticket/%d $1)
+
+}
+
+function wpc {
+
+	if [ -z "$1" ]; then
+		echo 'usage: wpc <changeset-number>'
+		return
+	fi
+
+	open $(printf https://core.trac.wordpress.org/changeset/%d $1)
+
+}
