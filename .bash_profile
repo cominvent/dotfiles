@@ -171,16 +171,16 @@ function wpblame {
 		if [ $count -eq $target ]; then
 			echo "$(tput setaf 2)${line}$(tput sgr0)"
 		else
-		    echo "$line"
+			echo "$line"
 		fi
-	    (( count++ ))
+		(( count++ ))
 	done <<< "$lines"
 
 	read -p "View changeset $changeset? (y/n) " -n 1 -r
 	echo    # move to a new line
 
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
-	    wpc "$changeset"
+		wpc "$changeset"
 	fi
 
 }
