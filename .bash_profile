@@ -138,3 +138,49 @@ function wpc {
 	open $(printf https://core.trac.wordpress.org/changeset/%d $1)
 
 }
+
+function wpblame {
+
+	padding=10
+
+	if [ -z "$1" -o -z "$2" ]; then
+		echo "usage: wpblame <file> <line-number> [<padding>]"
+		return
+	fi
+
+	if [ -n "$3" ]; then
+		padding="$3"
+	fi
+
+	first_line=$(($2 - $padding))
+	last_line=$(($2 + $padding))
+
+	if [ "$first_line" -lt 1 ]; then
+		target="$2"
+		first_line=1
+	else
+		target=$(($padding+1))
+	fi
+
+	blame=$(svn blame $1)
+	lines=$(echo "$blame" | cat -n | sed -n ${first_line},${last_line}p)
+	changeset=$(echo "$blame" | tr -s ' ' | cut -f 2 -d ' ' | sed -n ${2}p)
+	count=1
+
+	while read -r line; do
+		if [ $count -eq $target ]; then
+			echo "$(tput setaf 2)${line}$(tput sgr0)"
+		else
+		    echo "$line"
+		fi
+	    (( count++ ))
+	done <<< "$lines"
+
+	read -p "View changeset $changeset? (y/n) " -n 1 -r
+	echo    # move to a new line
+
+	if [[ $REPLY =~ ^[Yy]$ ]]; then
+	    wpc "$changeset"
+	fi
+
+}
